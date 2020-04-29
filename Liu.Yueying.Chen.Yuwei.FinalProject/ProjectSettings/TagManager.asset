@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - mouse
+  - door_normal
+  - door_jade
+  - door_death
+  - door_dagger
   layers:
   - Default
   - TransparentFX

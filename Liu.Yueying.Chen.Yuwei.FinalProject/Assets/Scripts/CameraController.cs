@@ -18,25 +18,19 @@ public class CameraController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-//		Debug.Log (camMode);
 		enterMouse = player.GetComponent<PlayerController> ().enterMouse;
-//		Debug.Log (enterMouse);
-		if (Input.GetButtonDown ("Out")) {
+		if (Input.GetButtonDown ("Out")) {  // switch to first person camera
 			if (camMode == 3) {
 				camMode = 1;
-				Debug.Log (camMode);
-				Debug.Log ("switch to first");
 				firstCam.SetActive (true); 
 				thirdCam.SetActive (false);
 				player.GetComponent<PlayerController> ().enterMouse = false;
 
 			}
 		}
-		else if (enterMouse) {
-//			Debug.Log (camMode);
+		else if (enterMouse) {  // switch to third person camera
 			if (camMode == 1) {
 				camMode = 3;
-				Debug.Log ("switch to third");
 				thirdCam.SetActive (true);
 				firstCam.SetActive (false); 
 			}
