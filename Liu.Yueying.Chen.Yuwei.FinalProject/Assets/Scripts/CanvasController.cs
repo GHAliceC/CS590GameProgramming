@@ -7,7 +7,8 @@ public class CanvasController : MonoBehaviour {
 	// public game objects
 	public GameObject player;
 	public GameObject props_panel;
-	public GameObject warning_text;
+	public GameObject map;
+	public GameObject instruction;
 
 	// public variable
 
@@ -23,5 +24,13 @@ public class CanvasController : MonoBehaviour {
 		enterMouse = player.GetComponent<PlayerController> ().enterMouse;
 		props_panel.SetActive (enterMouse);
 		
+	}
+
+	public void onButtonCloseMapPressed(){
+		map.SetActive (false);
+	}
+
+	public void onButtonCloseInstruPressed(){
+		instruction.SetActive (false);
 	}
 }

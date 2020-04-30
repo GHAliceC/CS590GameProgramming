@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour {
 	public GameObject[] dagger_block;
 	public GameObject[] jade_block;
 	public GameObject warning;
+	public GameObject map;
+	public GameObject instruction;
 
 	float moveSpeed;
 	float turnSpeed;
@@ -89,7 +91,7 @@ public class PlayerController : MonoBehaviour {
 				StartCoroutine (RemoveWarning ());
 			}
 		}
-
+		// Kitchen and Wine doors
 		if (other.gameObject.tag == "door_dagger") {
 			if (!hasDagger) {
 				warning.SetActive(true);
@@ -97,6 +99,15 @@ public class PlayerController : MonoBehaviour {
 				warning_text.GetComponent<Text>().text = "You cannot enter this door yet!";
 				StartCoroutine (RemoveWarning ());
 			}
+		}
+
+		// UI
+		if (other.gameObject.name == "map_trigger") {
+			map.SetActive (true);
+		}
+
+		if (other.gameObject.name == "instru_trigger") {
+			instruction.SetActive (true);
 		}
 			
 	}
