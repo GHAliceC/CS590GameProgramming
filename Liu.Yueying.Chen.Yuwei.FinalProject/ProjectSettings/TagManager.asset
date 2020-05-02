@@ -9,6 +9,7 @@ TagManager:
   - door_jade
   - door_death
   - door_dagger
+  - dagger
   layers:
   - Default
   - TransparentFX

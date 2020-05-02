@@ -8,20 +8,22 @@ public class PlayerController : MonoBehaviour {
 	// This script should be attached to the mouse that the player controls
 	// Also, add CharacterController component on the mouse
 
-	public bool enterMouse;
 	public GameObject canvas_prop;
 	public GameObject[] dagger_block;
 	public GameObject[] jade_block;
 	public GameObject warning;
 	public GameObject map;
 	public GameObject instruction;
+	public GameObject jade;
+
+	public bool enterMouse;
+	public bool hasDagger;
+	public bool hasJade;
 
 	float moveSpeed;
 	float turnSpeed;
 	CharacterController controller;
 	Vector3 rotation;
-	bool hasDagger;
-	bool hasJade;
 
 	// Use this for initialization
 	void Start () {
@@ -85,11 +87,13 @@ public class PlayerController : MonoBehaviour {
 		// Weapon and Music doors
 		if (other.gameObject.tag == "door_jade") {
 			if (enterMouse && !hasJade) { //door not open
-				warning.SetActive(true);
+				warning.SetActive (true);
 				GameObject warning_text = warning.transform.Find ("Warning_text").gameObject;
-				warning_text.GetComponent<Text>().text = "You cannot enter this door in a mouse yet!";
+				warning_text.GetComponent<Text> ().text = "You cannot enter this door in a mouse yet!";
 				StartCoroutine (RemoveWarning ());
-			}
+			} else if (enterMouse && hasJade) {  // can open door
+				other.gameObject.SetActive (false);
+			}  // else !enterMouse -> just go through door
 		}
 		// Kitchen and Wine doors
 		if (other.gameObject.tag == "door_dagger") {
@@ -108,6 +112,43 @@ public class PlayerController : MonoBehaviour {
 
 		if (other.gameObject.name == "instru_trigger") {
 			instruction.SetActive (true);
+		}
+
+		// pick up dagger
+		if (other.gameObject.tag == "dagger") {
+			if (!hasDagger) {  // only triggers event if not have dagger
+				if (!enterMouse) {  // cannot pickup dagger if not in mouse
+					warning.SetActive (true);
+					GameObject warning_text = warning.transform.Find ("Warning_text").gameObject;
+					warning_text.GetComponent<Text> ().text = "You cannot pickup anything as a soul!";
+					StartCoroutine (RemoveWarning ());
+				} else {  // pick up dagger
+					hasDagger = true;
+					warning.SetActive (true);
+					GameObject warning_text = warning.transform.Find ("Warning_text").gameObject;
+					warning_text.GetComponent<Text> ().text = "Congrats! You obtained a dagger.";
+					StartCoroutine (RemoveWarning ());
+				}
+			}
+		}
+
+		// pick up jade
+		if (other.gameObject.name == "jade") {
+			if (!hasJade) {  // only triggers event if not have jade
+				if (!enterMouse) {  // cannot pickup jade if not in mouse
+					warning.SetActive (true);
+					GameObject warning_text = warning.transform.Find ("Warning_text").gameObject;
+					warning_text.GetComponent<Text> ().text = "You cannot pickup anything as a soul!";
+					StartCoroutine (RemoveWarning ());
+				} else {
+					hasJade = true;
+					jade.SetActive (false);
+					warning.SetActive (true);
+					GameObject warning_text = warning.transform.Find ("Warning_text").gameObject;
+					warning_text.GetComponent<Text> ().text = "Congrats! You obtained a jade.";
+					StartCoroutine (RemoveWarning ());
+				}
+			}
 		}
 			
 	}
