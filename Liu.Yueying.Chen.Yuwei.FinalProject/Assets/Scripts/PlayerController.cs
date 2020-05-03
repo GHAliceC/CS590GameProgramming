@@ -58,6 +58,10 @@ public class PlayerController : MonoBehaviour {
 			foreach (GameObject invisDoor in dagger_block) {
 				invisDoor.SetActive (false);
 			}
+		} else {
+			foreach (GameObject invisDoor in dagger_block) {
+				invisDoor.SetActive (true);
+			}
 		}
 		if (hasJade || !enterMouse) {
 			foreach (GameObject invisDoor in jade_block) {
@@ -87,6 +91,7 @@ public class PlayerController : MonoBehaviour {
 		// Weapon and Music doors
 		if (other.gameObject.tag == "door_jade") {
 			if (enterMouse && !hasJade) { //door not open
+				Debug.Log("here");
 				warning.SetActive (true);
 				GameObject warning_text = warning.transform.Find ("Warning_text").gameObject;
 				warning_text.GetComponent<Text> ().text = "You cannot enter this door in a mouse yet!";
@@ -98,10 +103,22 @@ public class PlayerController : MonoBehaviour {
 		// Kitchen and Wine doors
 		if (other.gameObject.tag == "door_dagger") {
 			if (!hasDagger) {
-				warning.SetActive(true);
+				warning.SetActive (true);
 				GameObject warning_text = warning.transform.Find ("Warning_text").gameObject;
-				warning_text.GetComponent<Text>().text = "You cannot enter this door yet!";
+				warning_text.GetComponent<Text> ().text = "You cannot enter this door yet!";
 				StartCoroutine (RemoveWarning ());
+			} else {  // has dagger
+				if (enterMouse) {
+					warning.SetActive (true);
+					GameObject warning_text = warning.transform.Find ("Warning_text").gameObject;
+					warning_text.GetComponent<Text> ().text = "Dagger opend a small slit which a mouse cannot pass! ";
+					StartCoroutine (RemoveWarning ());
+				} else {
+					warning.SetActive (true);
+					GameObject warning_text = warning.transform.Find ("Warning_text").gameObject;
+					warning_text.GetComponent<Text> ().text = "Dagger opend a small slit which a soul can pass! ";
+					StartCoroutine (RemoveWarning ());
+				}
 			}
 		}
 
@@ -150,7 +167,11 @@ public class PlayerController : MonoBehaviour {
 				}
 			}
 		}
-			
+
+		// touch light
+		if (other.gameObject.tag == "light") {
+
+		}
 	}
 
 	IEnumerator RemoveWarning()

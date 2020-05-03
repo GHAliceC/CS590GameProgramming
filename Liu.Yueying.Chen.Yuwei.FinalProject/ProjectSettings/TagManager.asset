@@ -10,6 +10,7 @@ TagManager:
   - door_death
   - door_dagger
   - dagger
+  - light
   layers:
   - Default
   - TransparentFX
