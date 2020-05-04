@@ -20,7 +20,7 @@ public class SeesawRotate : MonoBehaviour {
 
 			if (transform.localRotation.z >= 10)
 			{
-				transform.Rotate(0, 0, -1.0f * Time.deltaTime * 100 );
+				transform.Rotate(0, 0, -1.0f * Time.deltaTime * 100);
 			}
 		}
 //		transform.Rotate(0, 0, 1f);
