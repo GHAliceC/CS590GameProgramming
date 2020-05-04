@@ -19,9 +19,11 @@ public class PlayerController : MonoBehaviour {
 	public bool enterMouse;
 	public bool hasDagger;
 	public bool hasJade;
+	public bool explodeReady;
 
 	float moveSpeed;
 	float turnSpeed;
+
 	CharacterController controller;
 	Vector3 rotation;
 
@@ -33,6 +35,7 @@ public class PlayerController : MonoBehaviour {
 		enterMouse = false;
 		hasDagger = false;
 		hasJade = false;
+		explodeReady = false;
 	}
 	
 	// Update is called once per frame
@@ -170,7 +173,7 @@ public class PlayerController : MonoBehaviour {
 
 		// touch light
 		if (other.gameObject.tag == "light") {
-
+			explodeReady = true;
 		}
 	}
 
