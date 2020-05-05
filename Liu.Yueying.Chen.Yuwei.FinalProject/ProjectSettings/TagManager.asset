@@ -11,6 +11,7 @@ TagManager:
   - door_dagger
   - dagger
   - light
+  - RandomPoint
   layers:
   - Default
   - TransparentFX
