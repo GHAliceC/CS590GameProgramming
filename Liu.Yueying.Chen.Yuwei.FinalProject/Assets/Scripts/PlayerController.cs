@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour {
 	public bool hasDagger;
 	public bool hasJade;
 	public bool explodeReady;
+	public bool hasBowl;
+	public bool hasWine;
 
 	float moveSpeed;
 	float turnSpeed;
@@ -174,6 +176,30 @@ public class PlayerController : MonoBehaviour {
 		// touch light
 		if (other.gameObject.tag == "light") {
 			explodeReady = true;
+		}
+
+		// take bowl
+		if (other.gameObject.tag == "bowl") {
+			if (enterMouse) {
+				hasBowl = true;
+			}
+		}
+
+		// take wine
+		if (other.gameObject.tag == "wine") {
+			if (enterMouse && hasBowl) {
+				hasWine = true;
+			}
+		}
+
+		// add wine
+		if (other.gameObject.name == "mice_bowl_trigger") {
+			if (hasWine) {
+				warning.SetActive (true);
+				GameObject warning_text = warning.transform.Find ("Warning_text").gameObject;
+				warning_text.GetComponent<Text> ().text = "Mice are drunk!";
+				StartCoroutine (RemoveWarning ());
+			}
 		}
 	}
 

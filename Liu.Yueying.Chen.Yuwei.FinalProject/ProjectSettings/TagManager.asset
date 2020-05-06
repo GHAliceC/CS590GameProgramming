@@ -12,6 +12,8 @@ TagManager:
   - dagger
   - light
   - RandomPoint
+  - bowl
+  - wine
   layers:
   - Default
   - TransparentFX

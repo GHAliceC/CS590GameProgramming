@@ -12,18 +12,24 @@ public class CanvasController : MonoBehaviour {
 	public GameObject instruction;
 	public GameObject dagger_sprite;
 	public GameObject jade_sprite;
+	public GameObject bowl_sprite;
+	public GameObject wine_sprite;
 	public GameObject explosion;
 	public GameObject explosion_ball;
+	public GameObject wine_door;
+	public GameObject kitchen_door;
 
 
 
-	// public variable
+	// private variable
 
 	bool enterMouse;
 	bool hasDagger;
 	bool hasJade;
 	bool explosionReady;
 	float explosionTime;
+	bool hasBowl;
+	bool hasWine;
 
 	// Use this for initialization
 	void Start () {
@@ -59,9 +65,15 @@ public class CanvasController : MonoBehaviour {
 			{
 				explosion.SetActive (false);
 				explosion_ball.SetActive (false);
+				wine_door.SetActive (false);
+				kitchen_door.SetActive (false);
 			}
 		}
-		
+
+		hasBowl = player.GetComponent<PlayerController> ().hasBowl;
+		bowl_sprite.SetActive (hasBowl && !hasWine);
+		hasWine = player.GetComponent<PlayerController> ().hasWine;
+		wine_sprite.SetActive (hasBowl && hasWine);
 	}
 
 	public void onButtonCloseMapPressed(){
