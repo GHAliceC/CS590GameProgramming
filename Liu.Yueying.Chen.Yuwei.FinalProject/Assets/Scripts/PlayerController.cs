@@ -15,6 +15,10 @@ public class PlayerController : MonoBehaviour {
 	public GameObject map;
 	public GameObject instruction;
 	public GameObject jade;
+	public GameObject fan;
+	public GameObject seesaw;
+	public GameObject fire;
+	public ParticleSystem fireball;
 
 	public bool enterMouse;
 	public bool hasDagger;
@@ -199,6 +203,7 @@ public class PlayerController : MonoBehaviour {
 				GameObject warning_text = warning.transform.Find ("Warning_text").gameObject;
 				warning_text.GetComponent<Text> ().text = "Mice are drunk!";
 				StartCoroutine (RemoveWarning ());
+				StopFire ();
 			}
 		}
 	}
@@ -207,6 +212,17 @@ public class PlayerController : MonoBehaviour {
 	{
 		yield return new WaitForSeconds(5);
 		warning.SetActive(false);
+	}
+
+	// stop fire shooting
+	void StopFire() {
+		fan = GameObject.Find ("Fan");
+		fan.transform.Rotate (0f, 0f, 0f);
+		fire = GameObject.Find ("Fire");
+		fireball  = fire.GetComponentInChildren <ParticleSystem> ();
+		seesaw = GameObject.Find ("Seesaw");
+		fireball.Stop ();
+		// can you try if this works?
 	}
 		
 }
