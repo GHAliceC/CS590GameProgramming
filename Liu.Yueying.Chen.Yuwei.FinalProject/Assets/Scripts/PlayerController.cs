@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
 
@@ -19,6 +20,7 @@ public class PlayerController : MonoBehaviour {
 	public GameObject seesaw;
 	public GameObject fire;
 	public ParticleSystem fireball;
+	public GameObject exit_block;
 
 	public bool enterMouse;
 	public bool hasDagger;
@@ -186,6 +188,15 @@ public class PlayerController : MonoBehaviour {
 		if (other.gameObject.tag == "bowl") {
 			if (enterMouse) {
 				hasBowl = true;
+				warning.SetActive (true);
+				GameObject warning_text = warning.transform.Find ("Warning_text").gameObject;
+				warning_text.GetComponent<Text> ().text = "Congrats! You obtained a bowl.";
+				StartCoroutine (RemoveWarning ());
+			} else {
+				warning.SetActive (true);
+				GameObject warning_text = warning.transform.Find ("Warning_text").gameObject;
+				warning_text.GetComponent<Text> ().text = "You cannot pickup anything as a soul!";
+				StartCoroutine (RemoveWarning ());
 			}
 		}
 
@@ -193,18 +204,28 @@ public class PlayerController : MonoBehaviour {
 		if (other.gameObject.tag == "wine") {
 			if (enterMouse && hasBowl) {
 				hasWine = true;
+				warning.SetActive (true);
+				GameObject warning_text = warning.transform.Find ("Warning_text").gameObject;
+				warning_text.GetComponent<Text> ().text = "Congrats! You obtained a bowl of alcohol.";
+				StartCoroutine (RemoveWarning ());
 			}
 		}
 
 		// add wine
 		if (other.gameObject.name == "mice_bowl_trigger") {
 			if (hasWine) {
+				exit_block.SetActive (false);
 				warning.SetActive (true);
 				GameObject warning_text = warning.transform.Find ("Warning_text").gameObject;
 				warning_text.GetComponent<Text> ().text = "Mice are drunk!";
 				StartCoroutine (RemoveWarning ());
 				StopFire ();
 			}
+		}
+
+		if (other.gameObject.name == "death_exit") {
+			HallControl.death_type = 1;
+			SceneManager.LoadScene (0);
 		}
 	}
 

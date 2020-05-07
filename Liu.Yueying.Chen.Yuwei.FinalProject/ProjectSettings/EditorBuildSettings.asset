@@ -4,4 +4,10 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Hall.unity
+    guid: 944fb3d7089754a33bd0dcc8612eb992
+  - enabled: 1
+    path: Assets/Mausoleum.unity
+    guid: 60327b43fb5204b73b751333701017e7
