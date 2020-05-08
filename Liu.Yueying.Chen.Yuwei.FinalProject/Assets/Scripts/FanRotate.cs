@@ -26,6 +26,7 @@ public class FanRotate : MonoBehaviour {
 		if (transform.localRotation.z >= 40) {
 			transform.Rotate (0, 0, -1.0f * Time.deltaTime * 100);
 		}
+
 //		}
 	}
 
