@@ -4,36 +4,111 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class RatScript : MonoBehaviour {
+		
+	public float moveSpeed = 2f;
+	public float rotSpeed = 40f;
+	private bool isWandering = false;
+	private bool isRotatingLeft = false;
+	private bool isRotatingRight = false;
+	private bool isWalking = false;
 
-	private NavMeshAgent nma = null;
-	private GameObject[] RandomPoint;
-	private Transform target;
-	private Vector3 dest;
-	private int CurrentRandom;
-
-	// Use this for initialization
-	void Start () {
-		nma = this.GetComponent<NavMeshAgent> ();
-		target = this.transform;
-		RandomPoint = GameObject.FindGameObjectsWithTag ("RandomPoint");
-//		Debug.Log ("RandomPoints = " + RandomPoint.Length.ToString ());
+	void Start()
+	{
+		
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (nma.hasPath == false) {
-			float distance = Vector3.Distance(target.position, transform.position);
 
-			if (distance <= 0.1f)
-			{
-				nma.SetDestination(target.position);
-			}
-			CurrentRandom = Random.Range (0, RandomPoint.Length);
-			nma.SetDestination (RandomPoint [CurrentRandom].transform.position);
-//			dest = RandomPoint [CurrentRandom].transform.position;
-//			transform.position = Vector3.Lerp (target.position, dest, 5f*Time.deltaTime);
-//			Debug.Log ("current " + target.position.ToString ());
-//			Debug.Log ("Moving" + RandomPoint [CurrentRandom].transform.position.ToString ());
+	void Update()
+	{
+		if (isWandering == false)
+		{
+			StartCoroutine (Wander ());
+		}
+		if (isRotatingRight == true) 
+		{
+			transform.Rotate (transform.up * Time.deltaTime * rotSpeed);
+		}
+		if (isRotatingLeft == true) 
+		{
+			transform.Rotate (transform.up * Time.deltaTime * -rotSpeed);
+		}
+		if (isWalking = true)
+		{
+			Debug.Log ("isWalking: " + isWalking);
+			transform.position += transform.forward * moveSpeed;
+			Debug.Log ("postiion: " + transform.position.ToString ());
 		}
 	}
+
+	IEnumerator Wander()
+	{
+		int rotTime = Random.Range (1, 5);
+		int rotateWait = Random.Range (1, 4);
+		int rotateLorR = Random.Range (1, 2);
+		int walkWait = Random.Range (1, 4);
+		int walkTime = Random.Range (1, 5);
+
+		isWandering = true;
+
+		yield return new WaitForSeconds (walkWait);
+		isWalking = true;
+		yield return new WaitForSeconds (walkTime);
+		isWalking = false;
+		yield return new WaitForSeconds (rotateWait);
+		if (rotateLorR == 1) 
+		{
+			isRotatingRight = true;
+			yield return new WaitForSeconds (rotTime);
+			isRotatingRight = false;
+		}
+		if (rotateLorR == 2) 
+		{
+			isRotatingLeft = true;
+			yield return new WaitForSeconds (rotTime);
+			isRotatingLeft = false;
+		}
+		isWandering = false;
+	}
+
+//	NavMeshAgent navMeshAgent;
+//	public float timerForNewPath;
+//	bool inCoRoutine;
+//
+//	// Use this for initialization
+//	void Start () 
+//	{
+//		navMeshAgent = GetComponent<NavMeshAgent> ();
+//	}
+//
+//
+//	Vector3 getNewRandomPosition() 
+//	{
+//		float x = Random.Range (-120, -100);
+//		float z = Random.Range (-10, 20);
+//
+//		Vector3 pos = new Vector3 (x, 0, z);
+//		return pos;
+//	}
+//
+//	void Update()
+//	{
+//		if (!inCoRoutine) 
+//		{
+//			StartCoroutine (DoSomething ());
+//		}
+//	}
+//
+//
+//	IEnumerator DoSomething()
+//	{
+//		inCoRoutine = true;
+//		yield return new WaitForSeconds (timerForNewPath);
+//		GetNewPath();
+//		inCoRoutine = false;
+//	}
+//
+//	void GetNewPath()
+//	{
+//		navMeshAgent.SetDestination (getNewRandomPosition ());
+//	}
+		
 }

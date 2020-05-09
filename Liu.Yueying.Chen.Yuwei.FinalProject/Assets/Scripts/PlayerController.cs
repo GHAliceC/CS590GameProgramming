@@ -16,11 +16,13 @@ public class PlayerController : MonoBehaviour {
 	public GameObject map;
 	public GameObject instruction;
 	public GameObject jade;
-//	public GameObject fan;
-//	public GameObject seesaw;
-//	public GameObject fire;
-//	public ParticleSystem fireball;
+	public GameObject windmill;
+	public GameObject windmill_stop;
+	public GameObject fire;
+	public GameObject lavaland;
 	public GameObject exit_block;
+
+	public ParticleSystem fireball;
 
 	public bool enterMouse;
 	public bool hasDagger;
@@ -219,7 +221,7 @@ public class PlayerController : MonoBehaviour {
 				GameObject warning_text = warning.transform.Find ("Warning_text").gameObject;
 				warning_text.GetComponent<Text> ().text = "Mice are drunk!";
 				StartCoroutine (RemoveWarning ());
-//				StopFire ();
+				StopFire ();
 			}
 		}
 
@@ -236,13 +238,13 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	// stop fire shooting
-//	void StopFire() {
-//		fan = GameObject.Find ("Fan");
-//		fan.transform.Rotate (0f, 0f, 0f);
-//		fire = GameObject.Find ("Fire");
-//		fireball  = fire.GetComponentInChildren <ParticleSystem> ();
-//		seesaw = GameObject.Find ("Seesaw");
-//		fireball.Stop ();
-//	}
+	void StopFire() {
+		windmill.SetActive (false);
+		windmill_stop.SetActive (true);
+		fire = GameObject.Find ("Fire");
+		fireball  = fire.GetComponentInChildren <ParticleSystem> ();
+		fireball.Stop ();
+		lavaland.SetActive (false);
+	}
 		
 }
