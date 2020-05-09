@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Mausoleum.unity
+- path: Assets/Hall.unity
   isLoaded: 1
   isActive: 1

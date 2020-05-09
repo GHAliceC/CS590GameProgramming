@@ -52,6 +52,7 @@ public class HallControl : MonoBehaviour {
 			"There are many ways you can die; \n" +
 			"But you can get out once you stop the fire balls at the entrance; \n" +
 			"There are some props in the mausoleum that you can collect to help you reach you goal, \n" +
-			"but you need to embody something to take objects.";
+			"but you need to embody something to take objects. \n" +
+			"To pause: just do not move. You will not die or lose progress.";
 	}
 }
