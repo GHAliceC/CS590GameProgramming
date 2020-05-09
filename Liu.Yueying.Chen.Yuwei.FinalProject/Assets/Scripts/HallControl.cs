@@ -12,8 +12,20 @@ public class HallControl : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		if (death_type == -1) {  // win!
+			info_text.text = "You succeed!!!";
+		}
 		if (death_type == 1) {  // die for hitting exit fireballs
-			info_text.text = "You died for being hit by exit fireballs!";
+			info_text.text = "You are killed by hitting fireballs!";
+		}
+		if (death_type == 2) {  // die for being buried by money
+			info_text.text = "You died for being buried by gold sand!";
+		}
+		if (death_type == 3) {  // alcohol
+			info_text.text = "You are killed by alcohol! ";
+		}
+		if (death_type == 4) {  // die for explosion
+			info_text.text = "You died in an explosion!";
 		}
 	}
 	

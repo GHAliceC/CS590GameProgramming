@@ -8,6 +8,7 @@ public class CameraController : MonoBehaviour {
 	public GameObject thirdCam;
 	public GameObject firstCam;
 	public int camMode;  // 1 as first person, 3 as third person
+	public GameObject mice_starter;
 
 	bool enterMouse;
 
@@ -19,6 +20,7 @@ public class CameraController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		enterMouse = player.GetComponent<PlayerController> ().enterMouse;
+//		Debug.Log (enterMouse);
 		if (Input.GetButtonDown ("Out")) {  // switch to first person camera
 			if (camMode == 3) {
 				camMode = 1;
@@ -27,12 +29,18 @@ public class CameraController : MonoBehaviour {
 				player.GetComponent<PlayerController> ().enterMouse = false;
 
 			}
+			mice_starter.GetComponent<CreateMice> ().instantiateMice ();
 		}
-		else if (enterMouse) {  // switch to third person camera
+		else if (enterMouse || Input.GetKeyDown(KeyCode.Space)) {  // switch to third person camera
+			
 			if (camMode == 1) {
+				player.GetComponent<PlayerController> ().enterMouse = true;
 				camMode = 3;
 				thirdCam.SetActive (true);
 				firstCam.SetActive (false); 
+				AudioSource source = player.GetComponent<SoundController> ().source;
+				AudioClip mouse = player.GetComponent<SoundController> ().mouse_sound;
+				source.PlayOneShot (mouse);
 			}
 		}
 	}

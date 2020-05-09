@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour {
 	public GameObject fire;
 	public GameObject lavaland;
 	public GameObject exit_block;
+	public GameObject safe;
 
 	public ParticleSystem fireball;
 
@@ -30,12 +31,15 @@ public class PlayerController : MonoBehaviour {
 	public bool explodeReady;
 	public bool hasBowl;
 	public bool hasWine;
+	public bool is_safe;
 
 	float moveSpeed;
 	float turnSpeed;
 
 	CharacterController controller;
 	Vector3 rotation;
+	AudioSource source;
+	AudioClip pick;
 
 	// Use this for initialization
 	void Start () {
@@ -46,6 +50,10 @@ public class PlayerController : MonoBehaviour {
 		hasDagger = false;
 		hasJade = false;
 		explodeReady = false;
+		is_safe = false;
+		safe.SetActive (false);
+		source = GetComponent<SoundController> ().source;
+		pick = GetComponent<SoundController> ().pick_sound;
 	}
 	
 	// Update is called once per frame
@@ -162,6 +170,8 @@ public class PlayerController : MonoBehaviour {
 					GameObject warning_text = warning.transform.Find ("Warning_text").gameObject;
 					warning_text.GetComponent<Text> ().text = "Congrats! You obtained a dagger.";
 					StartCoroutine (RemoveWarning ());
+
+					source.PlayOneShot (pick);
 				}
 			}
 		}
@@ -181,6 +191,8 @@ public class PlayerController : MonoBehaviour {
 					GameObject warning_text = warning.transform.Find ("Warning_text").gameObject;
 					warning_text.GetComponent<Text> ().text = "Congrats! You obtained a jade.";
 					StartCoroutine (RemoveWarning ());
+
+					source.PlayOneShot (pick);
 				}
 			}
 		}
@@ -189,6 +201,12 @@ public class PlayerController : MonoBehaviour {
 		if (other.gameObject.tag == "light") {
 			explodeReady = true;
 //			Debug.Log (explodeReady);
+			safe.SetActive(true);
+		}
+		if (other.gameObject.name == "safe_trigger") {
+			is_safe = true;
+//			Debug.Log (is_safe);
+			safe.SetActive (false);
 		}
 
 		// take bowl
@@ -199,6 +217,8 @@ public class PlayerController : MonoBehaviour {
 				GameObject warning_text = warning.transform.Find ("Warning_text").gameObject;
 				warning_text.GetComponent<Text> ().text = "Congrats! You obtained a bowl.";
 				StartCoroutine (RemoveWarning ());
+
+				source.PlayOneShot (pick);
 			} else {
 				warning.SetActive (true);
 				GameObject warning_text = warning.transform.Find ("Warning_text").gameObject;
@@ -210,12 +230,17 @@ public class PlayerController : MonoBehaviour {
 		// take wine
 		if (other.gameObject.tag == "wine") {
 			if (enterMouse && hasBowl) {
-				Debug.Log ("get wine");
+//				Debug.Log ("get wine");
 				hasWine = true;
 				warning.SetActive (true);
 				GameObject warning_text = warning.transform.Find ("Warning_text").gameObject;
 				warning_text.GetComponent<Text> ().text = "Congrats! You obtained a bowl of alcohol.";
 				StartCoroutine (RemoveWarning ());
+
+				source.PlayOneShot (pick);
+			} else if (!enterMouse) {
+				HallControl.death_type = 3;
+				SceneManager.LoadScene (0);
 			}
 		}
 
@@ -225,7 +250,7 @@ public class PlayerController : MonoBehaviour {
 				exit_block.SetActive (false);
 				warning.SetActive (true);
 				GameObject warning_text = warning.transform.Find ("Warning_text").gameObject;
-				warning_text.GetComponent<Text> ().text = "Mice are drunk!";
+				warning_text.GetComponent<Text> ().text = "Mice are drunk. Fireballs stopped!";
 				StartCoroutine (RemoveWarning ());
 				StopFire ();
 			}
@@ -233,6 +258,16 @@ public class PlayerController : MonoBehaviour {
 
 		if (other.gameObject.name == "death_exit") {
 			HallControl.death_type = 1;
+			SceneManager.LoadScene (0);
+		}
+
+		if (other.gameObject.name == "Money") {
+			HallControl.death_type = 2;
+			SceneManager.LoadScene (0);
+		}
+
+		if (other.gameObject.name == "win") {
+			HallControl.death_type = -1;
 			SceneManager.LoadScene (0);
 		}
 	}

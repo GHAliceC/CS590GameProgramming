@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CanvasController : MonoBehaviour {
 
@@ -30,10 +31,12 @@ public class CanvasController : MonoBehaviour {
 	float explosionTime;
 	bool hasBowl;
 	bool hasWine;
+	bool exploded;
 
 	// Use this for initialization
 	void Start () {
 		explosionTime = 10f;
+		exploded = false;
 	}
 	
 	// Update is called once per frame
@@ -50,7 +53,7 @@ public class CanvasController : MonoBehaviour {
 		explosionReady = player.GetComponent<PlayerController> ().explodeReady;
 //		Debug.Log (explosionReady);
 
-		if (explosionReady) {
+		if (explosionReady && !exploded) {
 			explosionTime -= Time.deltaTime;
 			GameObject explosion_text = explosion.transform.Find ("Explosion").gameObject;
 			explosion_text.GetComponent<Text> ().text = "Explosion!!! \n Please leave this room in " + (explosionTime).ToString("0") + " seconds!";
@@ -64,10 +67,20 @@ public class CanvasController : MonoBehaviour {
 
 			if (explosionTime < 0)
 			{
-				explosion.SetActive (false);
-				explosion_ball.SetActive (false);
-				wine_door.SetActive (false);
-				kitchen_door.SetActive (false);
+				exploded = true;
+				AudioSource source = player.GetComponent<SoundController> ().source;
+				AudioClip boom = player.GetComponent<SoundController> ().bomb_sound;
+				source.PlayOneShot (boom);
+				bool safe = player.GetComponent<PlayerController> ().is_safe;
+				if (safe) {
+					explosion.SetActive (false);
+					explosion_ball.SetActive (false);
+					wine_door.SetActive (false);
+					kitchen_door.SetActive (false);
+				} else {
+					HallControl.death_type = 4;
+					SceneManager.LoadScene (0);
+				}
 			}
 		}
 
