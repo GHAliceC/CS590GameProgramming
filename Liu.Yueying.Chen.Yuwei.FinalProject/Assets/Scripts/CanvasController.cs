@@ -48,6 +48,7 @@ public class CanvasController : MonoBehaviour {
 		jade_sprite.SetActive (hasJade);
 
 		explosionReady = player.GetComponent<PlayerController> ().explodeReady;
+//		Debug.Log (explosionReady);
 
 		if (explosionReady) {
 			explosionTime -= Time.deltaTime;

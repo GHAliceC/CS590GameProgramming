@@ -1,15 +1,12 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/RatScript.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerController.cs">
     <Files>
-      <File FileName="Assets/Scripts/FanRotate.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/SeesawRotate.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/PlayerController.cs" Line="247" Column="30" />
-      <File FileName="Assets/Scripts/CanvasController.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/PlayerController.cs" Line="213" Column="28" />
+      <File FileName="Assets/Scripts/CanvasController.cs" Line="51" Column="32" />
       <File FileName="Assets/Scripts/FireShoot.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/HallControl.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/RatScript.cs" Line="46" Column="14" />
-      <File FileName="Assets/Scripts/MoveScript.cs" Line="6" Column="18" />
+      <File FileName="Assets/Scripts/MoveScript.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -59,10 +59,12 @@ public class PlayerController : MonoBehaviour {
 		this.transform.Rotate(rotation);
 
 		// toggle prop on canvas
-		if (enterMouse && !canvas_prop.activeSelf) {
+		if (enterMouse) {
+//			Debug.Log ("active");
 			canvas_prop.SetActive (true);
+//			Debug.Log (canvas_prop.activeSelf);
 		}
-		if (!enterMouse && canvas_prop.activeSelf) {
+		if (!enterMouse) {
 			canvas_prop.SetActive (false);
 		}
 
@@ -92,10 +94,12 @@ public class PlayerController : MonoBehaviour {
 		// enter mouse
 		if(other.gameObject.tag == "mouse"){
 			enterMouse = true;
+			other.gameObject.SetActive (false);
 		}
 
 		// Entertainment, Library and Clothing doors
 		if (other.gameObject.tag == "door_normal") {
+//			Debug.Log ("door normal");
 			if (enterMouse) {
 				other.gameObject.SetActive (false);
 			}
@@ -104,7 +108,7 @@ public class PlayerController : MonoBehaviour {
 		// Weapon and Music doors
 		if (other.gameObject.tag == "door_jade") {
 			if (enterMouse && !hasJade) { //door not open
-				Debug.Log("here");
+//				Debug.Log("here");
 				warning.SetActive (true);
 				GameObject warning_text = warning.transform.Find ("Warning_text").gameObject;
 				warning_text.GetComponent<Text> ().text = "You cannot enter this door in a mouse yet!";
@@ -184,6 +188,7 @@ public class PlayerController : MonoBehaviour {
 		// touch light
 		if (other.gameObject.tag == "light") {
 			explodeReady = true;
+//			Debug.Log (explodeReady);
 		}
 
 		// take bowl
@@ -205,6 +210,7 @@ public class PlayerController : MonoBehaviour {
 		// take wine
 		if (other.gameObject.tag == "wine") {
 			if (enterMouse && hasBowl) {
+				Debug.Log ("get wine");
 				hasWine = true;
 				warning.SetActive (true);
 				GameObject warning_text = warning.transform.Find ("Warning_text").gameObject;

@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 195769543163664972}
   m_Layer: 0
   m_Name: rat
-  m_TagString: Untagged
+  m_TagString: mouse
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -137,7 +137,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1358615464544198}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 3.3021953, y: 2.2026672, z: 10.388916}

@@ -33,9 +33,9 @@ public class RatScript : MonoBehaviour {
 		}
 		if (isWalking = true)
 		{
-			Debug.Log ("isWalking: " + isWalking);
+//			Debug.Log ("isWalking: " + isWalking);
 			transform.position += transform.forward * moveSpeed;
-			Debug.Log ("postiion: " + transform.position.ToString ());
+//			Debug.Log ("postiion: " + transform.position.ToString ());
 		}
 	}
 
